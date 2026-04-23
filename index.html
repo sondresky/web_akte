@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akte | Design og teknologi</title>
+  <meta name="description" content="Akte er et norsk studio som kombinerer design, strategi og teknologi for å bygge løsninger som varer." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 44'%3E%3Cellipse cx='36' cy='22' rx='36' ry='22' fill='%231a1816'/%3E%3Cpath d='M24,33 L36,12 L48,33' stroke='white' stroke-width='4' stroke-linejoin='miter' stroke-linecap='butt' fill='none'/%3E%3Cline x1='29' y1='26' x2='43' y2='26' stroke='white' stroke-width='3.5' stroke-linecap='butt'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Jost:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.typekit.net/qnc6ibk.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:        #1a1816;
+      --muted:       #3d3a36;      /* sterkere kontrast */
+      --bg:          #f7f7f5;      /* nøytral hvit */
+      --bg-alt:      #efefed;
+      --bg-dark:     #0f0e0c;
+      --text-light:  #f0ece3;
+      --muted-light: #9a9088;      /* 4.6:1 på mørk bg ✅ */
+      --border:      #e2e2df;
+      --border-dark: #201e1a;
+      --accent:      #5F6B53;
+      --accent-dark: #7a8a6a;
+      --max:         1280px;
+      --pad:         40px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    h1, h2, h3, h4,
+    .hvorfor-heading,
+    .tjeneste-row-tittel,
+    .om-heading,
+    .aktuelt-heading,
+    .disiplin-tittel,
+    .prosess-metoder-label,
+    .tjenester-intro-tekst {
+      font-family: "nitti-grotesk", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background-color 0.9s cubic-bezier(0.25,0.1,0.25,1);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    /* ─── GRAIN TEXTURE ─── */
+    .grain-overlay {
+      position: relative;
+    }
+    .grain-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: transparent;
+      transition: background 0.5s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    nav.scrolled {
+      background: var(--bg);
+    }
+    body.page-dark {
+      background-color: var(--bg-dark);
+    }
+    body.page-dark nav.scrolled {
+      background: var(--bg-dark);
+    }
+    .nav-logo img {
+      transition: filter 0.5s ease;
+    }
+    body.page-dark .nav-logo img {
+      filter: invert(1);
+    }
+    .nav-menu-label {
+      transition: color 0.5s ease;
+    }
+    body.page-dark .nav-menu-label {
+      color: var(--text-light);
+    }
+    /* Tekst i aktuelt blir lys når siden er mørk */
+    body.page-dark .aktuelt-heading,
+    body.page-dark .aktuelt-alle,
+    body.page-dark .section-label {
+      color: var(--text-light);
+      transition: color 0.4s ease;
+    }
+    body.page-dark .aktuelt-alle {
+      border-color: rgba(240,236,227,0.4);
+    }
+    nav.menu-open { background: var(--bg); }
+    body.page-dark nav.menu-open { background: var(--bg-dark); }
+    nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+    .nav-inner {
+      max-width: 1600px; margin: 0 auto;
+      padding: clamp(18px, 2.2vw, 28px) var(--pad);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      display: flex; align-items: center;
+      background: none; border: none; padding: 0;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .nav-menu-btn {
+      display: flex; align-items: center;
+      background: none; border: none; padding: 10px 0;
+      cursor: pointer;
+    }
+    .nav-side-label {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .nav-side-label.left { color: var(--text); }
+    .nav-side-label.right { color: var(--text); }
+    nav.menu-open .nav-side-label { color: var(--text-light); }
+    .nav-logo svg { display: block; }
+    .nav-logo svg ellipse { transition: fill 0.6s ease; }
+
+    /* Menu label */
+    .nav-menu-label {
+      font-size: 22px; font-weight: 500; letter-spacing: 0;
+      text-transform: none;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+    nav.menu-open .nav-menu-label { color: var(--text-light); }
+
+    .nav-logo { transition: opacity 0.3s ease; }
+
+    /* ─── LOGO SCROLL BREAK ─── */
+    .nav-logo-wrap {
+      position: relative;
+      height: 28px;
+      width: 82px;
+    }
+    .nav-logo-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 28px;
+      width: auto;
+      display: block;
+      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .nav-logo-full  { opacity: 1; }
+    .nav-logo-brudd { opacity: 0; }
+    nav.logo-broken .nav-logo-full  { opacity: 0; }
+    nav.logo-broken .nav-logo-brudd { opacity: 1; }
+    /* Invert logos on dark backgrounds */
+    nav.nav-dark .nav-logo-img {
+      filter: invert(1);
+    }
+    .nav-links { display: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      font-size: 16px; font-weight: 400; letter-spacing: 0.01em;
+      font-family: inherit;
+      opacity: 0.55;
+      transition: opacity 0.2s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible { opacity: 1; }
+    .nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 1px; }
+    .nav-links a.active { opacity: 1; }
+
+    /* Nav over dark sections */
+    nav.nav-dark .nav-logo { color: var(--text-light); }
+    nav.nav-dark .nav-links a { color: var(--text-light); }
+    nav.nav-dark .hamburger span { background: var(--text-light); }
+
+    /* ─── NAV EXPAND ─── */
+    .nav-expand {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1);
+      border-top: 1px solid transparent;
+    }
+    nav.menu-open .nav-expand {
+      max-height: 500px;
+      border-top-color: var(--border);
+    }
+    body.page-dark nav.menu-open .nav-expand { border-top-color: rgba(255,255,255,0.08); }
+    .nav-expand-inner {
+      padding: clamp(16px, 2vw, 24px) var(--pad) clamp(20px, 2.5vw, 32px);
+      max-width: 1600px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: flex-end;
+    }
+    .nav-expand-link {
+      font-size: clamp(16px, 1.5vw, 20px); font-weight: 300;
+      letter-spacing: -0.02em; line-height: 1.2;
+      color: var(--text); text-decoration: none;
+      padding: clamp(6px, 0.8vw, 10px) 0;
+      transition: color 0.2s;
+    }
+    .nav-expand-link:first-child { border-top: none; }
+    .nav-expand-link:hover { color: var(--accent); }
+    body.page-dark .nav-expand-link { color: var(--text-light); border-color: rgba(255,255,255,0.08); }
+    body.page-dark .nav-expand-link:hover { color: var(--accent-dark); }
+    .nav-expand-footer {
+      padding-top: clamp(12px, 1.5vw, 20px);
+      font-size: 11px; color: var(--muted); font-weight: 400;
+      display: flex; justify-content: space-between;
+    }
+    .nav-expand-footer a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .nav-expand-footer a:hover { color: var(--text); }
+    body.page-dark .nav-expand-footer { color: var(--muted-light); }
+    body.page-dark .nav-expand-footer a:hover { color: var(--text-light); }
+
+    /* ─── LAYOUT ─── */
+    :root { --cm: max(var(--pad), calc((100vw - 1600px) / 2 + var(--pad))); }
+    .container { max-width: 1600px; margin: 0 auto; padding: 0 var(--pad); }
+    section { padding: clamp(100px, 14vw, 200px) 0; }
+
+    /* ─── SECTION LABEL ─── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.13em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 20px; height: 1px; background: currentColor; opacity: 0.5;
+    }
+    #om .section-label, #kontakt .section-label { color: var(--muted-light); }
+
+    /* ─── ANIMASJONER ─── */
+    .reveal-wrap { overflow: hidden; }
+    .reveal-inner {
+      transform: translateY(104%);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-wrap.visible .reveal-inner { transform: translateY(0); }
+
+    .fade-up {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.45s; }
+    .delay-5 { transition-delay: 0.6s; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; z-index: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding-top: calc(68px + clamp(100px, 12vw, 180px));
+      padding-bottom: clamp(40px, 5vw, 64px);
+    }
+
+    /* Øverste rad: tittel venstre + ingress høyre */
+    .hero-top {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      align-items: start;
+      padding: 0 var(--pad) clamp(40px, 5vw, 72px);
+    }
+
+    h1 {
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      padding-bottom: 0.08em;
+      color: var(--text);
+    }
+    h1 em { font-style: italic; }
+
+
+    /* Høyre kolonne: ingress i boks, høyrestilt */
+    .hero-desc-col {
+      justify-self: end;
+      max-width: 44ch;
+      margin-top: 12px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 28px;
+      margin-top: 28px;
+    }
+    .hero-btn-primary {
+      display: inline-flex; align-items: center;
+      font-size: 13px; font-weight: 400; letter-spacing: 0.07em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--bg); background: var(--text);
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: background 0.2s ease;
+    }
+    .hero-btn-primary:hover { background: var(--accent); }
+    .hero-btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hero-cta:hover,
+    .hero-cta:focus-visible { color: var(--text); border-color: var(--text); }
+    .hero-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 1px; }
+
+    .hero-desc {
+      font-size: clamp(16px, 1.4vw, 19px);
+      color: var(--text);
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    .scroll-line-bar {
+      width: 36px; height: 1px; background: var(--accent);
+      animation: scrollBar 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes scrollBar {
+      0%, 100% { transform: scaleX(1); opacity: 0.4; }
+      50%       { transform: scaleX(0.5); opacity: 1; }
+    }
+
+    .hero-image-col {
+      position: relative;
+      min-height: auto;
+      margin: 0 var(--pad);
+      background: transparent;
+    }
+    .hero-carousel {
+      --hero-slide-width: clamp(560px, 60vw, 700px);
+      --hero-slide-overlap: clamp(84px, 8vw, 118px);
+      position: relative;
+    }
+    .hero-carousel:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 6px;
+    }
+    .hero-carousel-viewport {
+      overflow: hidden;
+      padding: clamp(8px, 1vw, 12px) 0;
+      touch-action: pan-y pinch-zoom;
+      user-select: none;
+      cursor: grab;
+    }
+    .hero-carousel-viewport.is-dragging {
+      cursor: grabbing !important;
+    }
+    .hero-carousel-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      will-change: transform;
+    }
+    .hero-carousel-track.is-animating {
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-carousel-slide {
+      flex: none;
+      width: var(--hero-slide-width);
+      aspect-ratio: 640 / 380;
+      position: relative;
+      overflow: hidden;
+      background: #d8d2cb;
+      opacity: 1;
+      transform-origin: center center;
+      transform: scale(0.82);
+      transition: none;
+      will-change: transform;
+    }
+    .hero-carousel-slide + .hero-carousel-slide {
+      margin-left: calc(var(--hero-slide-overlap) * -1);
+    }
+    .hero-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .hero-carousel-action-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(26, 24, 22, 0.12);
+      background: rgba(247, 247, 245, 0.92);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.86);
+      transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hero-carousel-action-cursor.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .hero-carousel-action-cursor-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .hero-carousel[data-edge-direction="prev"] .hero-carousel-viewport,
+      .hero-carousel[data-edge-direction="next"] .hero-carousel-viewport {
+        cursor: none;
+      }
+    }
+    @media (hover: none), (pointer: coarse) {
+      .hero-carousel-action-cursor {
+        display: none;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-carousel-track.is-animating,
+      .hero-carousel-slide {
+        transition-duration: 0.01ms;
+      }
+    }
+
+    /* ─── MARQUEE ─── */
+
+    /* ─── TJENESTER ─── */
+    #tjenester { padding-top: clamp(80px, 8vw, 120px); position: relative; z-index: 1; }
+
+    .hero-sub {
+      text-align: center;
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      padding: clamp(20px, 2.5vw, 32px) var(--pad) 0;
+    }
+    .tjenester-sub {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-style: normal;
+      font-size: clamp(15px, 1.3vw, 16px);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 48px;
+      letter-spacing: 0;
+    }
+
+    .tjenester-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+    .tjenester-intro {
+      padding-top: 20px;
+    }
+    .tekst-highlight {
+      background: rgba(194, 59, 34, 0.12);
+      color: var(--accent);
+      padding: 0 6px 2px;
+      border-radius: 2px;
+      font-style: normal;
+    }
+    .tekst-highlight-blå {
+      background: rgba(37, 99, 195, 0.1);
+      color: #2563c3;
+      padding: 0 6px 2px;
+      border-radius: 2px;
+      font-style: normal;
+    }
+    .tekst-highlight-grønn {
+      background: rgba(22, 120, 70, 0.1);
+      color: #167846;
+      padding: 0 6px 2px;
+      border-radius: 2px;
+      font-style: normal;
+    }
+
+    .tjenester-intro-tekst {
+      font-size: clamp(32px, 4vw, 54px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .tjenester-intro-desc {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    .tjenester-intro-desc p + p { margin-top: 1em; }
+    .tjenester-liste { order: 2; }
+    .tjenester-intro { order: 1; }
+
+    .tjeneste-row { border-bottom: 1px solid var(--border); }
+
+    .tjeneste-row-header {
+      display: flex; align-items: center; gap: 20px;
+      padding: 24px 0; width: 100%;
+      background: none; border: none; cursor: pointer; text-align: left;
+      transition: opacity 0.2s;
+    }
+    .tjeneste-row-header:hover .tjeneste-row-tittel { color: var(--accent); }
+
+    .tjeneste-row-left {
+      display: flex; align-items: center; gap: 20px; flex: 1; min-width: 0;
+    }
+.tjeneste-row-tittel {
+      font-size: clamp(20px, 1.8vw, 26px);
+      font-weight: 300; letter-spacing: -0.02em;
+      color: var(--text); line-height: 1.25;
+      transition: color 0.2s;
+    }
+
+    .tjeneste-row-toggle {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .tjeneste-row.open .tjeneste-row-toggle {
+      border-color: var(--accent); background: var(--accent);
+    }
+    .tjeneste-row-toggle .plus-h,
+    .tjeneste-row-toggle .plus-v {
+      position: absolute; background: var(--text);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s;
+    }
+    .tjeneste-row-toggle .plus-h { width: 10px; height: 1px; }
+    .tjeneste-row-toggle .plus-v { width: 1px; height: 10px; }
+    .tjeneste-row.open .tjeneste-row-toggle .plus-h,
+    .tjeneste-row.open .tjeneste-row-toggle .plus-v { background: #fff; }
+    .tjeneste-row.open .tjeneste-row-toggle .plus-v { transform: rotate(90deg); opacity: 0; }
+
+    .tjeneste-row-desc {
+      font-size: 17px; color: var(--muted);
+      line-height: 1.8; font-weight: 400;
+      padding: 0 0 20px 50px;
+    }
+
+    .tjeneste-row-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .tjeneste-row.open .tjeneste-row-body { grid-template-rows: 1fr; }
+    .tjeneste-row-body-inner { overflow: hidden; }
+
+    .tjeneste-row-content {
+      padding: 8px 0 40px 56px;
+    }
+
+    /* ─── PROSESS INNHOLD ─── */
+    .akte-steg-grid .tjeneste-row-header {
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+    }
+    .akte-steg-grid .tjeneste-row-body-inner {
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+    }
+    body.page-dark .akte-steg-grid .tjeneste-row { border-color: var(--border-dark); }
+    body.page-dark .akte-steg-grid .tjeneste-row-tittel { color: var(--text-light); }
+    body.page-dark .akte-steg-grid .tjeneste-row-header:hover .tjeneste-row-tittel { color: var(--accent-dark); }
+    body.page-dark .akte-steg-grid .tjeneste-row-toggle { border-color: rgba(240,236,227,0.2); }
+    body.page-dark .akte-steg-grid .tjeneste-row.open .tjeneste-row-toggle { border-color: var(--accent-dark); background: var(--accent-dark); }
+    .prosess-innhold {
+      padding: 0 0 clamp(32px, 4vw, 52px) 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 5vw, 72px);
+    }
+    .prosess-beskrivelse {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.75;
+    }
+    body.page-dark .prosess-beskrivelse { color: var(--text-light); }
+    .prosess-metoder-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .prosess-metoder-label { display: none; }
+    .prosess-metoder {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .prosess-metoder li {
+      font-size: 17px;
+      font-weight: 400; color: var(--muted);
+      line-height: 1.75;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .prosess-metoder li:first-child { border-top: none; }
+    .prosess-metoder li:last-child { border-bottom: none; }
+    body.page-dark .prosess-metoder li { color: var(--text-light); border-bottom-color: rgba(240,236,227,0.15); }
+    body.page-dark .prosess-metoder-label { color: var(--text-light); border-bottom-color: rgba(240,236,227,0.15); }
+    @media (max-width: 700px) {
+      .prosess-innhold { grid-template-columns: 1fr; padding-right: 0; }
+    }
+
+    .leveranse-list {
+      list-style: none;
+      display: flex; flex-direction: column;
+      gap: 0;
+    }
+    .leveranse-list li {
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.75;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .leveranse-list li:last-child { border-bottom: none; }
+    body.page-dark .leveranse-list li { border-bottom-color: var(--border-dark); color: var(--muted-light); }
+
+
+
+
+
+
+    /* ─── SEKSJONSSKILLE ─── */
+    .seksjon-skille {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 4vw, 56px);
+      padding: clamp(60px, 8vw, 120px) var(--pad) clamp(12px, 1.5vw, 20px);
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .seksjon-skille-linje {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .seksjon-skille-tekst {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-style: normal;
+      font-size: clamp(22px, 2.8vw, 40px);
+      font-weight: 300;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    /* ─── BILDE-SKILLE ─── */
+    .bilde-skille {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: clamp(28px, 4vw, 56px) var(--pad) clamp(40px, 6vw, 88px);
+    }
+    .bilde-skille-ramme {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-alt);
+      aspect-ratio: 16 / 7;
+    }
+    .bilde-skille-ramme img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+
+    /* ─── METODE ─── */
+    #metode { padding: 100px 0; }
+    .metode-steg {
+      position: relative;
+      width: clamp(300px, 40vw, 500px);
+      height: clamp(300px, 40vw, 500px);
+      flex-shrink: 0;
+    }
+
+    .metode-ring {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .metode-ring-path {
+      stroke: var(--border);
+      stroke-width: 1.2;
+      stroke-dasharray: 289;
+      stroke-dashoffset: 289;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #metode-steg.animate .metode-ring-path { stroke-dashoffset: 0; }
+
+    /* Each item: only the num circle, title positioned outside */
+    .metode-item {
+      position: absolute;
+      width: 20px; height: 20px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    #metode-steg.animate .metode-item[data-step="0"] { opacity: 1; transition-delay: 0.5s; }
+    #metode-steg.animate .metode-item[data-step="1"] { opacity: 1; transition-delay: 0.9s; }
+    #metode-steg.animate .metode-item[data-step="2"] { opacity: 1; transition-delay: 1.3s; }
+    #metode-steg.animate .metode-item[data-step="3"] { opacity: 1; transition-delay: 1.7s; }
+
+    /* num on ring: r=46 in viewBox 0 0 100 100 → cardinal at 4%/96%/50% */
+    .metode-item[data-step="0"] { top: 4%;  left: 50%; transform: translate(-50%, -50%); }
+    .metode-item[data-step="1"] { top: 50%; right: 4%; transform: translate(50%, -50%); }
+    .metode-item[data-step="2"] { bottom: 4%; left: 50%; transform: translate(-50%, 50%); }
+    .metode-item[data-step="3"] { top: 50%; left: 4%; transform: translate(-50%, -50%); }
+
+    /* Title outside ring */
+    .metode-tittel {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .metode-item[data-step="0"] .metode-tittel { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+    .metode-item[data-step="1"] .metode-tittel { left: calc(100% + 10px); top: 50%; transform: translateY(-50%); }
+    .metode-item[data-step="2"] .metode-tittel { top: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+    .metode-item[data-step="3"] .metode-tittel { right: calc(100% + 10px); top: 50%; transform: translateY(-50%); }
+
+    .metode-num {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; letter-spacing: 0.08em;
+      color: var(--accent); font-weight: 400;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .metode-num::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.4s, transform 0.4s;
+      pointer-events: none;
+    }
+    .metode-item.active .metode-num {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .metode-item.active .metode-num::after {
+      opacity: 0.25;
+      transform: scale(1.4);
+      animation: metode-pulse 1.8s ease-out infinite;
+    }
+    .metode-item.active .metode-tittel { color: var(--accent); }
+    @keyframes metode-pulse {
+      0%   { opacity: 0.3; transform: scale(1.1); }
+      100% { opacity: 0;   transform: scale(2.2); }
+    }
+    .metode-tittel {
+      font-size: clamp(11px, 1vw, 13px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .metode-desc {
+      text-align: center;
+      font-size: clamp(13px, 1.1vw, 15px);
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    @media (max-width: 600px) {
+      .hvorfor-kort-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── DISIPLINER ─── */
+    .disipliner-wrap {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: clamp(72px, 10vw, 120px) var(--pad) 0;
+    }
+    .disipliner-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .disipliner-grid > div {
+      padding: 0 clamp(24px, 4vw, 56px);
+      border-left: 1px solid var(--border);
+    }
+    .disipliner-grid > div:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+    .disipliner-grid > div:last-child {
+      padding-right: 0;
+    }
+    body.page-dark .disipliner-grid > div {
+      border-left-color: var(--border-dark);
+    }
+    .disiplin-tittel {
+      font-size: clamp(20px, 1.8vw, 26px);
+      font-weight: 300; letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    body.page-dark .disiplin-tittel { color: var(--text-light); }
+    .disiplin-tekst {
+      font-size: clamp(15px, 1.2vw, 16px);
+      font-weight: 400; color: var(--muted);
+      line-height: 1.75;
+    }
+    body.page-dark .disiplin-tekst { color: var(--text-light); }
+    @media (max-width: 700px) {
+      .disipliner-grid { grid-template-columns: 1fr; }
+      .disipliner-grid > div { padding: 24px 0; border-left: none; border-top: 1px solid var(--border); }
+      .disipliner-grid > div:first-child { border-top: none; padding-top: 0; }
+    }
+
+    /* ─── AKTUELT ─── */
+    #aktuelt { background: transparent; padding: clamp(80px, 10vw, 140px) 0; }
+    .aktuelt-header {
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 1600px; margin: 0 auto clamp(32px, 4vw, 48px);
+      padding: 0 var(--pad);
+    }
+    .aktuelt-heading {
+      font-size: clamp(34px, 4.5vw, 58px);
+      font-weight: 300; letter-spacing: -0.03em; color: var(--text);
+    }
+    .aktuelt-alle {
+      font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; border-bottom: 1px solid var(--border);
+      padding-bottom: 4px; transition: color 0.2s, border-color 0.2s;
+    }
+    .aktuelt-alle:hover { color: var(--text); border-color: var(--text); }
+
+    .aktuelt-marquee-wrap {
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent var(--cm),
+        black var(--cm),
+        black calc(100% - var(--cm)),
+        transparent calc(100% - var(--cm))
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent var(--cm),
+        black var(--cm),
+        black calc(100% - var(--cm)),
+        transparent calc(100% - var(--cm))
+      );
+    }
+    .aktuelt-marquee-track {
+      display: flex;
+      width: max-content;
+      gap: clamp(20px, 3vw, 40px);
+      will-change: transform;
+    }
+    .aktuelt-kort {
+      flex: none;
+      width: clamp(240px, 28vw, 400px);
+      aspect-ratio: 2/3;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .aktuelt-kort-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      filter: sepia(14%) saturate(0.9);
+      transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+    .aktuelt-kort:hover .aktuelt-kort-bg { transform: scale(1.05); }
+    .aktuelt-kort::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 45%, rgba(15,14,12,0.78) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .aktuelt-kategori {
+      position: absolute; top: clamp(14px, 1.6vw, 20px); left: clamp(14px, 1.6vw, 20px);
+      z-index: 2;
+      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
+      background: rgba(15,14,12,0.45);
+      padding: 5px 9px; border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+    .aktuelt-tittel {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: clamp(16px, 2vw, 24px);
+      z-index: 2;
+      font-size: clamp(15px, 1.4vw, 19px); font-weight: 300;
+      letter-spacing: -0.02em; color: var(--text-light);
+      line-height: 1.3;
+    }
+
+    /* ─── OM / KONTAKT ─── */
+    #om {
+      background: #0f0e0c;
+      color: var(--text-light);
+      padding: clamp(48px, 6vw, 80px) 0;
+    }
+    .om-inner-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+    }
+    .om-heading {
+      font-size: clamp(36px, 6vw, 88px);
+      font-weight: 300; letter-spacing: -0.04em;
+      line-height: 1.0; color: var(--text-light);
+      margin-bottom: clamp(16px, 2vw, 24px);
+    }
+    .om-akte-betyr {
+      font-size: clamp(15px, 1.2vw, 17px);
+      font-weight: 400; color: var(--text-light);
+      line-height: 1.75;
+      margin-top: clamp(12px, 1.5vw, 20px);
+    }
+    .om-cta-sub {
+      font-size: clamp(15px, 1.4vw, 19px);
+      font-weight: 300; color: rgba(240,236,227,0.5);
+      line-height: 1.7;
+    }
+
+    .om-cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(240,236,227,0.3);
+      padding-bottom: 3px;
+      margin-top: clamp(24px, 3vw, 36px);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .om-cta-btn:hover { color: #fff; border-color: rgba(240,236,227,0.7); }
+
+    .om-folk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(16px, 2vw, 28px);
+    }
+    @media (max-width: 700px) {
+      .om-inner-layout { grid-template-columns: 1fr; }
+    }
+    .om-folk-kort { display: flex; flex-direction: column; }
+    .om-folk-bilde {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: clamp(16px, 2vw, 22px);
+    }
+    .om-folk-bilde img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: sepia(12%) saturate(0.9);
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .om-folk-kort:hover .om-folk-bilde img { transform: scale(1.03); }
+    .om-folk-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .om-folk-navn {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: var(--text-light); line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .om-folk-rolle {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
+      margin-bottom: clamp(12px, 1.5vw, 18px);
+    }
+    .om-folk-lenker { display: flex; flex-direction: column; gap: 5px; }
+    .om-folk-lenke {
+      font-size: 14px; font-weight: 300;
+      color: var(--text-light); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .om-folk-lenke:hover { color: #fff; }
+
+    .om-bunn {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: clamp(28px, 3.5vw, 44px);
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 32px; flex-wrap: wrap;
+    }
+    .om-bunn-meta { display: flex; flex-direction: column; gap: 5px; }
+    .om-bunn-meta span {
+      font-size: 13px; color: rgba(255,255,255,0.3);
+      font-weight: 300; letter-spacing: 0.01em;
+    }
+
+
+    /* ─── HVORFOR AKTE ─── */
+    #hvorfor { background: transparent; }
+    .hvorfor-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+    .hvorfor-topp {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(32px, 5vw, 72px);
+      padding-bottom: clamp(48px, 6vw, 80px);
+    }
+    .hvorfor-topp-venstre { display: flex; flex-direction: column; gap: 20px; }
+    .hvorfor-heading {
+      font-size: clamp(34px, 4.5vw, 58px);
+      font-weight: 300; letter-spacing: -0.04em;
+      line-height: 1.05; color: var(--text);
+    }
+    .hvorfor-intro-tekst {
+      font-size: clamp(16px, 1.3vw, 19px);
+      font-weight: 400; color: var(--muted);
+      line-height: 1.75;
+    }
+    body.page-dark .hvorfor-intro-tekst {
+      color: var(--text-light);
+    }
+    body.page-dark .hvorfor-heading { color: var(--text-light); }
+    body.page-dark .akte-steg-grid .tjeneste-row-toggle .plus-h,
+    body.page-dark .akte-steg-grid .tjeneste-row-toggle .plus-v { background: var(--text-light); }
+    body.page-dark #hvorfor .tjeneste-row { border-color: rgba(240,236,227,0.15); }
+    @media (max-width: 700px) {
+      .hvorfor-topp { grid-template-columns: 1fr; }
+    }
+
+    .akte-steg-grid {
+      display: flex;
+      flex-direction: column;
+      margin: 0 calc(-1 * var(--pad));
+      position: relative;
+    }
+    .akte-steg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(24px, 4vw, 64px);
+    }
+    .akte-steg-tittel {
+      font-size: clamp(20px, 2.5vw, 36px);
+      font-weight: 300; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 0;
+      transition: color 0.2s ease;
+    }
+    body.page-dark .akte-steg-tittel { color: var(--text-light); }
+    .akte-steg-tekst {
+      font-size: 16px;
+      font-weight: 400; line-height: 1.75;
+      color: var(--muted); max-width: 52ch;
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), color 0.2s ease;
+    }
+    body.page-dark .akte-steg-tekst { color: var(--muted-light); }
+
+    @media (hover: hover) {
+      .akte-steg-tekst {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      .hvorfor-kort:hover .akte-steg-tekst {
+        opacity: 1;
+        transform: translateY(0);
+        color: var(--text-light);
+      }
+    }
+    @media (max-width: 600px) {
+      .akte-steg { grid-template-columns: 1fr; }
+    }
+    .hvorfor-kort-grid {
+      display: flex;
+      flex-direction: column;
+      margin: 0 calc(-1 * var(--pad));
+    }
+    .hvorfor-kort {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 5vw, 80px);
+      align-items: center;
+      padding: clamp(28px, 3.5vw, 48px) var(--pad);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid transparent;
+      background: transparent;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.2s ease,
+                  border-color 0.2s ease;
+      cursor: default;
+    }
+    .hvorfor-kort:first-child { border-top: none; }
+    .hvorfor-kort:last-child { border-bottom: none; }
+    .hvorfor-bunn {
+      padding: clamp(20px, 2.5vw, 32px) var(--pad) 0;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); font-weight: 400;
+    }
+    .hvorfor-kort.visible { opacity: 1; transform: translateY(0); }
+    .hvorfor-kort {
+      border-top-color: var(--border);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.2s ease,
+                  border-color 0.2s ease;
+    }
+    .hvorfor-kort:hover { background: var(--bg-dark); border-top-color: var(--accent); }
+    .hvorfor-kort:hover .akte-steg-tittel { color: var(--accent-dark); }
+
+    .hvorfor-kort-tittel {
+      font-size: clamp(20px, 2.5vw, 36px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.15;
+      transition: color 0.45s ease;
+    }
+    .hvorfor-kort:hover .hvorfor-kort-tittel { color: var(--accent-dark); }
+
+    .hvorfor-kort-tekst {
+      font-size: clamp(15px, 1.2vw, 17px);
+      color: var(--text-light);
+      line-height: 1.75;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hvorfor-kort:hover .hvorfor-kort-tekst {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 700px) {
+      .hvorfor-topp { flex-direction: column; align-items: flex-start; }
+      .hvorfor-kort { grid-template-columns: 1fr; gap: 10px; }
+    }
+
+
+
+
+    /* ─── STATEMENT ─── */
+    .om-statement {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: clamp(80px, 10vw, 140px) var(--pad) clamp(48px, 6vw, 80px);
+    }
+    .statement-tekst {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(24px, 3vw, 48px);
+      color: var(--text-light);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      max-width: 20ch;
+      font-weight: 400;
+    }
+
+    /* ─── KONTAKT-SKJEMA ─── */
+
+    .kontakt-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .form-rad {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .form-felt {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid transparent;
+      padding: 24px 0;
+      position: relative;
+      transition: border-color 0.25s;
+    }
+    .form-rad .form-felt:first-child {
+      border-right-color: var(--border);
+      padding-right: 32px;
+    }
+    .form-rad .form-felt:last-child {
+      padding-left: 32px;
+    }
+    .form-felt:focus-within {
+      border-bottom-color: var(--accent);
+    }
+    .form-rad .form-felt:first-child:focus-within {
+      border-right-color: var(--accent);
+    }
+    .form-felt label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    .form-felt:focus-within label { color: var(--accent); }
+    .form-felt input,
+    .form-felt textarea,
+    .form-felt select {
+      background: none;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: clamp(15px, 1.3vw, 17px);
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.5;
+      resize: none;
+      cursor: pointer;
+    }
+    .form-felt input::placeholder,
+    .form-felt textarea::placeholder { color: var(--border); }
+
+    .form-felt--full {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.25s;
+    }
+    .form-felt--full:focus-within { border-bottom-color: var(--accent); }
+
+    .form-bunn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+    }
+    .form-personvern {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 28ch;
+      line-height: 1.5;
+    }
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--text);
+      border: none;
+      padding: 14px 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+    .form-submit:hover { background: var(--accent); }
+    .form-submit:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    #om .form-submit:focus-visible { outline-color: var(--accent-dark); }
+
+    @media (max-width: 860px) {
+      .kontakt-inner { grid-template-columns: 1fr; }
+      .form-rad { grid-template-columns: 1fr; }
+      .form-rad .form-felt:first-child { border-right-color: transparent; padding-right: 0; }
+      .form-rad .form-felt:last-child { padding-left: 0; }
+    }
+
+    /* ─── SKJEMA MØRk (i #om) ─── */
+    #om .form-felt {
+      border-bottom-color: rgba(240,236,227,0.15);
+    }
+    #om .form-rad .form-felt:first-child {
+      border-right-color: rgba(240,236,227,0.15);
+    }
+    #om .form-felt:focus-within {
+      border-bottom-color: var(--accent-dark);
+    }
+    #om .form-rad .form-felt:first-child:focus-within {
+      border-right-color: var(--accent-dark);
+    }
+    #om .form-felt--full {
+      border-bottom-color: rgba(240,236,227,0.15);
+    }
+    #om .form-felt--full:focus-within {
+      border-bottom-color: var(--accent-dark);
+    }
+    #om .form-felt label { color: #fff; }
+    #om .form-felt:focus-within label { color: var(--accent-dark); }
+    #om .form-felt input,
+    #om .form-felt textarea,
+    #om .form-felt select {
+      color: #fff;
+      background: transparent;
+    }
+    #om .form-felt input::placeholder,
+    #om .form-felt textarea::placeholder { color: rgba(255,255,255,0.35); }
+    #om .form-felt select option { background: var(--bg-dark); color: #fff; }
+    #om .form-personvern { color: rgba(255,255,255,0.7); }
+    #om .form-submit {
+      background: var(--text-light);
+      color: var(--bg-dark);
+    }
+    #om .form-submit:hover { background: var(--accent-dark); color: var(--text-light); }
+
+    /* ─── FOOTER ─── */
+    footer { background: #0f0e0c; padding: 0; overflow: hidden; }
+    .footer-wordmark {
+      display: block;
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-size: clamp(80px, 18vw, 280px);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,236,227,0.15);
+      line-height: 0.85;
+      padding: 0 var(--pad);
+      user-select: none;
+      transition: -webkit-text-stroke-color 0.4s ease, color 0.4s ease;
+      text-decoration: none;
+    }
+    .footer-wordmark:hover {
+      color: rgba(240,236,227,0.06);
+      -webkit-text-stroke-color: rgba(240,236,227,0.3);
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+      padding: 32px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo { font-family: 'DM Sans', -apple-system, sans-serif; font-style: normal; font-size: 14px; font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-light); text-decoration: none; }
+    .footer-links { display: flex; gap: 32px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-light); text-decoration: none;
+      font-weight: 300; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-right { font-size: 12px; color: var(--text-light); font-weight: 300; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      :root { --pad: 24px; }
+      .hero-top { grid-template-columns: 1fr; }
+      .hero-desc-col { padding-left: 0; margin-top: 24px; }
+      .hero-image-col { margin-top: 4px; }
+      .hero-carousel {
+        --hero-slide-width: min(86vw, 370px);
+        --hero-slide-overlap: 42px;
+      }
+      .hero-carousel-slide {
+        aspect-ratio: 370 / 196;
+        opacity: 1;
+        transform: scale(0.86);
+      }
+      .hero-carousel-action-cursor {
+        display: none;
+      }
+
+
+
+      .tjeneste-row-content { grid-template-columns: 1fr; }
+      .tjenester-layout { grid-template-columns: 1fr; }
+      .tjenester-intro { padding-top: 0; }
+
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 38px; }
+    }
+    /* ─── SKIP TO CONTENT ─── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--pad);
+      z-index: 9999;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 2px;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: var(--pad); }
+
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Akte",
+    "description": "Norsk studio som kombinerer design, strategi og teknologi for å bygge løsninger som varer.",
+    "url": "https://akte.no",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Innlandet"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Gjøvik",
+      "addressRegion": "Innlandet",
+      "addressCountry": "NO"
+    },
+    "serviceType": ["Tjenestedesign", "Strategi", "Kommunikasjon", "Innsiktsarbeid"]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#hero" class="skip-link">Hopp til innholdet</a>
+
+  <svg width="0" height="0" style="position:absolute;overflow:hidden;" aria-hidden="true">
+    <defs>
+      <clipPath id="hero-mask" clipPathUnits="objectBoundingBox">
+        <polygon points="1,0 1,0.4263 0.7192,0.4263 0.7192,0.6572 0.5001,0.6572 0.5001,0.6573 0.4201,0.6573 0.1603,1 0,1 0,0.5737 0.2809,0.5737 0.2809,0.3429 0.5001,0.3429 0.5001,0.3428 0.5800,0.3428 0.8397,0 1,0"/>
+        <polygon points="0.8366,0.6572 1,0.4263 1,0.6572 0.8366,0.6572"/>
+        <polygon points="0.1635,0.3428 0,0.5736 0,0.3428 0.1635,0.3428"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+
+
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Hovednavigasjon">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Akte — tilbake til topp">
+        <img src="images/logo/logobrudd.svg" alt="Akte" style="height:28px; width:auto; display:block;" />
+      </a>
+      <button class="nav-menu-btn" id="menuToggle" aria-label="Åpne meny" aria-expanded="false">
+        <span class="nav-menu-label" id="menuStateLabel">Meny</span>
+      </button>
+    </div>
+    <div class="nav-expand" id="navExpand">
+      <div class="nav-expand-inner">
+        <a href="#tjenester" class="nav-expand-link">Tjenester</a>
+        <a href="#hvorfor" class="nav-expand-link">Prosess</a>
+        <a href="#aktuelt" class="nav-expand-link">Aktuelt</a>
+        <a href="#kontakt" class="nav-expand-link">Kontakt</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+<section id="hero" aria-labelledby="hero-heading" style="position:relative;outline:none;" tabindex="-1">
+    <div class="hero-top">
+      <div class="hero-title-col">
+        <div class="reveal-wrap">
+          <div class="reveal-inner">
+            <h1 id="hero-heading">Design og teknologi<br>i samme retning</h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero-desc-col">
+        <p class="hero-desc fade-up delay-1">De beste løsningene oppstår når man forstår menneskene de er laget for. Akte kombinerer design og teknologi for å bygge varige løsninger.</p>
+        <div class="hero-actions fade-up delay-2">
+        </div>
+      </div>
+    </div>
+    <figure class="hero-image-col" aria-label="Prosjekter">
+      <div class="hero-carousel" tabindex="0" aria-label="Bildekarusell">
+        <div class="hero-carousel-viewport" aria-hidden="true">
+          <div class="hero-carousel-track">
+            <div class="hero-carousel-slide">
+              <img src="images/prosjekt-01.jpg" alt="Innbyggerportal for selvbetjening" />
+            </div>
+            <div class="hero-carousel-slide">
+              <img src="images/prosjekt-02.jpg" alt="Digital helseveileder" />
+            </div>
+            <div class="hero-carousel-slide">
+              <img src="images/prosjekt-03.jpg" alt="Årsrapport og formidling" />
+            </div>
+            <div class="hero-carousel-slide">
+              <img src="images/prosjekt-04.jpg" alt="Fremtidsscenarier og strategisk innsikt" />
+            </div>
+          </div>
+        </div>
+        <div class="hero-carousel-action-cursor" aria-hidden="true">
+          <span class="hero-carousel-action-cursor-icon">←</span>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+
+  <!-- TJENESTER -->
+  <section id="tjenester" aria-labelledby="tjenester-heading">
+    <div class="container">
+      <p class="tjenester-sub fade-up" id="tjenester-heading" style="display:none"></p>
+      <div class="tjenester-layout">
+
+        <div class="tjenester-liste">
+
+          <!-- Strategi og identitet -->
+          <div class="tjeneste-row fade-up delay-1">
+            <button class="tjeneste-row-header" aria-expanded="false">
+              <div class="tjeneste-row-left">
+                <h3 class="tjeneste-row-tittel">Strategi og merkevare</h3>
+              </div>
+              <span class="tjeneste-row-toggle" aria-hidden="true">
+                <span class="plus-h"></span><span class="plus-v"></span>
+              </span>
+            </button>
+            <div class="tjeneste-row-body">
+              <div class="tjeneste-row-body-inner">
+                <div class="tjeneste-row-content">
+                  <ul class="leveranse-list">
+                    <li>Innsiktsarbeid og brukerreiser</li>
+                    <li>Tjenestedesign og strategiske veivalg</li>
+                    <li>Logodesign og merkevarebygging</li>
+                    <li>Visuell identitet og designsystemer</li>
+                    <li>Workshops og konseptutvikling</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digitale produkter -->
+          <div class="tjeneste-row fade-up delay-2">
+            <button class="tjeneste-row-header" aria-expanded="false">
+              <div class="tjeneste-row-left">
+                <h3 class="tjeneste-row-tittel">Digitale produkter</h3>
+              </div>
+              <span class="tjeneste-row-toggle" aria-hidden="true">
+                <span class="plus-h"></span><span class="plus-v"></span>
+              </span>
+            </button>
+            <div class="tjeneste-row-body">
+              <div class="tjeneste-row-body-inner">
+                <div class="tjeneste-row-content">
+                  <ul class="leveranse-list">
+                    <li>Nettsider og nettbutikker</li>
+                    <li>Apper og digitale tjenester</li>
+                    <li>Interne verktøy og plattformer</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KI og automatisering -->
+          <div class="tjeneste-row fade-up delay-3">
+            <button class="tjeneste-row-header" aria-expanded="false">
+              <div class="tjeneste-row-left">
+                <h3 class="tjeneste-row-tittel">KI og automatisering</h3>
+              </div>
+              <span class="tjeneste-row-toggle" aria-hidden="true">
+                <span class="plus-h"></span><span class="plus-v"></span>
+              </span>
+            </button>
+            <div class="tjeneste-row-body">
+              <div class="tjeneste-row-body-inner">
+                <div class="tjeneste-row-content">
+                  <ul class="leveranse-list">
+                    <li>Kartlegging av KI-muligheter i din virksomhet</li>
+                    <li>Integrering av KI i produkt og arbeidsflyt</li>
+                    <li>Automatisering av manuelle prosesser</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Markedsføring og synlighet -->
+          <div class="tjeneste-row fade-up delay-4" style="border-bottom: none;">
+            <button class="tjeneste-row-header" aria-expanded="false">
+              <div class="tjeneste-row-left">
+                <h3 class="tjeneste-row-tittel">Markedsføring og synlighet</h3>
+              </div>
+              <span class="tjeneste-row-toggle" aria-hidden="true">
+                <span class="plus-h"></span><span class="plus-v"></span>
+              </span>
+            </button>
+            <div class="tjeneste-row-body">
+              <div class="tjeneste-row-body-inner">
+                <div class="tjeneste-row-content">
+                  <ul class="leveranse-list">
+                    <li>Betalt annonsering og kampanjer</li>
+                    <li>E-post og innholdsmarkedsføring</li>
+                    <li>Analyse og konverteringsoptimalisering</li>
+                    <li>SEO og teknisk optimalisering</li>
+                    <li>Innhold som rangerer i søk og KI-anbefalinger</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tjenester-intro fade-up delay-1">
+          <p class="tjenester-intro-tekst">Fra innsikt til handling</p>
+          <div class="tjenester-intro-desc">
+            <p>Vi starter alltid med å forstå. Hvem bruker tjenesten, hva trenger de og hva stopper dem i dag? Derfra bruker vi design, teknologi og smarte verktøy for å bygge løsninger som faktisk fungerer i praksis.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <figure class="bilde-skille fade-up" aria-hidden="true">
+    <div class="bilde-skille-ramme">
+      <img src="images/icons8-team-yTwXpLO5HAA-unsplash.jpg" alt="" loading="lazy" />
+    </div>
+  </figure>
+
+  <!-- HVORFOR VELGE AKTE -->
+  <section id="hvorfor" aria-labelledby="hvorfor-heading">
+    <div class="hvorfor-inner">
+
+      <div class="hvorfor-topp fade-up">
+        <div class="hvorfor-topp-venstre">
+          <h2 class="hvorfor-heading" id="hvorfor-heading">Slik jobber vi</h2>
+        </div>
+        <p class="hvorfor-intro-tekst">Arbeidsmåten vår for design av tjenester<br>og digitale produkter oppsummeres i fire steg</p>
+      </div>
+
+      <div class="akte-steg-grid">
+
+        <div class="tjeneste-row fade-up">
+          <button class="tjeneste-row-header" aria-expanded="false">
+            <div class="tjeneste-row-left">
+              <h3 class="tjeneste-row-tittel">Avklaring</h3>
+            </div>
+            <span class="tjeneste-row-toggle" aria-hidden="true">
+              <span class="plus-h"></span><span class="plus-v"></span>
+            </span>
+          </button>
+          <div class="tjeneste-row-body">
+            <div class="tjeneste-row-body-inner">
+              <div class="prosess-innhold">
+                <p class="prosess-beskrivelse">Vi starter med å forstå problemet, ikke løse det. De fleste prosjekter mislykkes fordi man hopper rett til svar uten å vite hva spørsmålet egentlig er. Vi snakker med brukerne, kartlegger konteksten og definerer hva vi faktisk skal løse. Sammen.</p>
+                <div class="prosess-metoder-wrap">
+                  <p class="prosess-metoder-label">Metoder</p>
+                  <ul class="prosess-metoder">
+                    <li>Brukerintervjuer og observasjon</li>
+                    <li>Interessentkartlegging</li>
+                    <li>Problemdefinisjon og HMW</li>
+                    <li>Innsiktsoppsummering</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tjeneste-row fade-up delay-1">
+          <button class="tjeneste-row-header" aria-expanded="false">
+            <div class="tjeneste-row-left">
+              <h3 class="tjeneste-row-tittel">Konsept</h3>
+            </div>
+            <span class="tjeneste-row-toggle" aria-hidden="true">
+              <span class="plus-h"></span><span class="plus-v"></span>
+            </span>
+          </button>
+          <div class="tjeneste-row-body">
+            <div class="tjeneste-row-body-inner">
+              <div class="prosess-innhold">
+                <p class="prosess-beskrivelse">Ideer er billige. Det gode konseptet krever jobbing. Vi genererer mange retninger raskt, evaluerer dem opp mot innsikten vi har samlet og snevrer inn mot de alternativene som er verdt å ta videre. Vi velger med hodet, ikke bare magefølelsen.</p>
+                <div class="prosess-metoder-wrap">
+                  <p class="prosess-metoder-label">Metoder</p>
+                  <ul class="prosess-metoder">
+                    <li>Idédugnad og sketching</li>
+                    <li>Konseptevaluering</li>
+                    <li>Scenariobygging</li>
+                    <li>Prioritering og nedsnevring</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tjeneste-row fade-up delay-2">
+          <button class="tjeneste-row-header" aria-expanded="false">
+            <div class="tjeneste-row-left">
+              <h3 class="tjeneste-row-tittel">Testing</h3>
+            </div>
+            <span class="tjeneste-row-toggle" aria-hidden="true">
+              <span class="plus-h"></span><span class="plus-v"></span>
+            </span>
+          </button>
+          <div class="tjeneste-row-body">
+            <div class="tjeneste-row-body-inner">
+              <div class="prosess-innhold">
+                <p class="prosess-beskrivelse">Vi tester antagelser, ikke ferdige løsninger. Jo tidligere vi møter virkeligheten, jo billigere er det å justere kursen. En enkel papirprototype kan gi like mye læring som tre måneders utvikling.</p>
+                <div class="prosess-metoder-wrap">
+                  <p class="prosess-metoder-label">Metoder</p>
+                  <ul class="prosess-metoder">
+                    <li>Papir- og klikkprototyper</li>
+                    <li>Brukertesting og intervjuer</li>
+                    <li>Iterasjon basert på funn</li>
+                    <li>Validering av antagelser</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tjeneste-row fade-up delay-3" style="border-bottom: none;">
+          <button class="tjeneste-row-header" aria-expanded="false">
+            <div class="tjeneste-row-left">
+              <h3 class="tjeneste-row-tittel">Etablering</h3>
+            </div>
+            <span class="tjeneste-row-toggle" aria-hidden="true">
+              <span class="plus-h"></span><span class="plus-v"></span>
+            </span>
+          </button>
+          <div class="tjeneste-row-body">
+            <div class="tjeneste-row-body-inner">
+              <div class="prosess-innhold">
+                <p class="prosess-beskrivelse">Løsninger dør i skuffen hvis de ikke lander ordentlig. Vi sørger for at det vi bygger faktisk tas i bruk og at det er designet for å vare, ikke bare for lanseringsdagen. Etablering er ikke sluttpunktet.</p>
+                <div class="prosess-metoder-wrap">
+                  <p class="prosess-metoder-label">Metoder</p>
+                  <ul class="prosess-metoder">
+                    <li>Implementering og lansering</li>
+                    <li>Opplæring og forankring</li>
+                    <li>Oppfølging og måling</li>
+                    <li>Iterativ videreutvikling</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="disipliner-wrap">
+        <div class="disipliner-grid">
+
+          <div class="fade-up">
+            <h3 class="disiplin-tittel">Strategi</h3>
+            <p class="disiplin-tekst">Vi hjelper deg sette retning og ta de rette valgene. Det handler om å omsette mål til handling, avklare prioriteringer og sikre at organisasjonen trekker i samme retning.</p>
+          </div>
+
+          <div class="fade-up delay-1">
+            <h3 class="disiplin-tittel">KI</h3>
+            <p class="disiplin-tekst">Utviklingen med KI skjer i enorm fart. Vi hjelper deg forstå hva KI faktisk kan gjøre for din virksomhet og setter det i system. Fra automatisering av prosesser, til smarte verktøy eller rådgivning.</p>
+          </div>
+
+          <div class="fade-up delay-2">
+            <h3 class="disiplin-tittel">Merkevare</h3>
+            <p class="disiplin-tekst">Vi hjelper deg definere hvem du er, hva du står for og hvordan du skiller deg ut. Fra posisjonering og tone of voice til en visuell identitet som holder over tid.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+  <!-- AKTUELT -->
+  <section id="aktuelt" aria-labelledby="aktuelt-heading">
+    <div class="aktuelt-header">
+      <h2 class="aktuelt-heading" id="aktuelt-heading">Aktuelt</h2>
+    </div>
+    <div class="aktuelt-marquee-wrap">
+      <div class="aktuelt-marquee-track">
+
+        <!-- SET 1 -->
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-01.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Når KI møter offentlig sektor — muligheter og fallgruver</h3>
+        </a>
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-02.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">Prosjekt</span>
+          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
+        </a>
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/bilde-02.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">Innsikt</span>
+          <h3 class="aktuelt-tittel">Hva betyr det egentlig å designe for folk flest?</h3>
+        </a>
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-04.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">Systemer</span>
+          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
+        </a>
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/icons8-team-yTwXpLO5HAA-unsplash.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">Strategi</span>
+          <h3 class="aktuelt-tittel">Offentlig sektor trenger mer mot i digitale anskaffelser</h3>
+        </a>
+        <a href="#" class="aktuelt-kort">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-03.jpg" alt="" aria-hidden="true">
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
+        </a>
+
+        <!-- SET 2 — kopi for sømløs loop -->
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-01.jpg" alt="">
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Når KI møter offentlig sektor — muligheter og fallgruver</h3>
+        </a>
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-02.jpg" alt="">
+          <span class="aktuelt-kategori">Prosjekt</span>
+          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
+        </a>
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/bilde-02.jpg" alt="">
+          <span class="aktuelt-kategori">Innsikt</span>
+          <h3 class="aktuelt-tittel">Hva betyr det egentlig å designe for folk flest?</h3>
+        </a>
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-04.jpg" alt="">
+          <span class="aktuelt-kategori">Systemer</span>
+          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
+        </a>
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/icons8-team-yTwXpLO5HAA-unsplash.jpg" alt="">
+          <span class="aktuelt-kategori">Strategi</span>
+          <h3 class="aktuelt-tittel">Offentlig sektor trenger mer mot i digitale anskaffelser</h3>
+        </a>
+        <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
+          <img class="aktuelt-kort-bg" src="images/prosjekt-03.jpg" alt="">
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OM / KONTAKT -->
+  <section id="om" aria-labelledby="om-heading">
+    <div class="container" id="kontakt">
+
+      <div class="om-inner-layout">
+
+      <div class="om-cta-topp fade-up">
+        <h2 class="om-heading" id="om-heading">Tett på folk<br>tett på behovene</h2>
+        <p class="om-akte-betyr">«Akte» betyr å bry seg om, ta hensyn til og verdsette.<br>Det har vi alltid med oss.</p>
+        <a href="mailto:hei@akte.no" class="om-cta-btn">Ta kontakt</a>
+      </div>
+
+      <div class="om-folk-grid">
+
+        <div class="om-folk-kort fade-up">
+          <div class="om-folk-bilde">
+            <img src="images/sondre.jpeg" alt="Sondre Skytteren" />
+          </div>
+          <p class="om-folk-navn">Sondre Skytteren</p>
+          <p class="om-folk-rolle">Designer</p>
+          <div class="om-folk-lenker">
+            <a href="mailto:fornavn@akte.no" class="om-folk-lenke">sondre@akte.no</a>
+          </div>
+        </div>
+
+
+        <div class="om-folk-kort fade-up delay-2">
+          <div class="om-folk-bilde">
+            <img src="images/bilde-02.jpg" alt="Henrik Sørensen" />
+          </div>
+          <p class="om-folk-navn">Henrik Sørensen</p>
+          <p class="om-folk-rolle">Utvikler</p>
+          <div class="om-folk-lenker">
+            <a href="mailto:henrik@akte.no" class="om-folk-lenke">henrik@akte.no</a>
+          </div>
+        </div>
+
+        <!-- Legg til flere: kopier et .om-folk-kort-blokk hit -->
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <ul class="footer-links">
+          <li><a href="#tjenester">Tjenester</a></li>
+          <li><a href="mailto:hei@akte.no">hei@akte.no</a></li>
+        </ul>
+        <span class="footer-right">Akte AS</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+
+
+    // ─── STICKY NAV + DARK BG TRANSITION ───
+    const nav = document.getElementById('nav');
+    let lastScrollY = 0;
+
+    // Lerp between light bg (#f7f7f5) and dark bg (#0f0e0c)
+    const bgLight = [247, 247, 245];
+    const bgDark  = [15, 14, 12];
+
+    function lerpColor(a, b, t) {
+      t = Math.max(0, Math.min(1, t));
+      return `rgb(${Math.round(a[0]+(b[0]-a[0])*t)},${Math.round(a[1]+(b[1]-a[1])*t)},${Math.round(a[2]+(b[2]-a[2])*t)})`;
+    }
+
+    const darkTriggerEl = document.querySelector('#aktuelt');
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 60);
+      nav.classList.toggle('logo-broken', y > 60);
+      if (y > lastScrollY && y > 100) {
+        nav.classList.add('nav-hidden');
+      } else {
+        nav.classList.remove('nav-hidden');
+      }
+      if (nav.classList.contains('menu-open')) closeMenu();
+      lastScrollY = y;
+
+      if (darkTriggerEl) {
+        const triggerY = darkTriggerEl.offsetTop - window.innerHeight * 0.8;
+        document.body.classList.toggle('page-dark', y > triggerY);
+      }
+    }, { passive: true });
+
+    // ─── NAV EXPAND MENY ───
+    const menuToggle    = document.getElementById('menuToggle');
+    const menuStateLabel = document.getElementById('menuStateLabel');
+
+    function openMenu() {
+      nav.classList.add('menu-open', 'scrolled');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuStateLabel.textContent = 'Lukk';
+      nav.classList.remove('nav-hidden');
+    }
+
+    function closeMenu() {
+      nav.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuStateLabel.textContent = 'Meny';
+    }
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.contains('menu-open') ? closeMenu() : openMenu();
+    });
+
+    document.querySelectorAll('.nav-expand-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // ─── TJENESTER ACCORDION ───
+    document.querySelectorAll('.tjeneste-row-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const row = header.closest('.tjeneste-row');
+        const willOpen = !row.classList.contains('open');
+        document.querySelectorAll('.tjeneste-row.open').forEach(r => {
+          r.classList.remove('open');
+          r.querySelector('.tjeneste-row-header').setAttribute('aria-expanded', false);
+        });
+        if (willOpen) {
+          row.classList.add('open');
+          header.setAttribute('aria-expanded', true);
+        }
+      });
+    });
+
+    // ─── REVEAL / FADE ANIMATIONS ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+
+    document.querySelectorAll('.reveal-wrap, .fade-up').forEach(el => observer.observe(el));
+
+    // Hero animerer umiddelbart
+    document.querySelectorAll('#hero .reveal-wrap, #hero .fade-up').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 80);
+    });
+    // ─── DRAG TO SCROLL AKTUELT ───
+    const marqueeWrap = document.querySelector('.aktuelt-marquee-wrap');
+    const marqueeTrack = document.querySelector('.aktuelt-marquee-track');
+    if (marqueeWrap && marqueeTrack) {
+      let pos = 0, velX = 0, lastX = 0;
+      let isDown = false, isDragging = false, dragRaf;
+      const autoSpeed = 0.35;
+      let halfWidth = 0;
+
+      // Calculate halfWidth after layout
+      requestAnimationFrame(() => { halfWidth = marqueeTrack.scrollWidth / 2; });
+
+      function wrap(p) {
+        if (!halfWidth) return p;
+        p = p % halfWidth;
+        if (p > 0) p -= halfWidth;
+        return p;
+      }
+
+      function tick() {
+        if (!isDragging) pos -= autoSpeed;
+        pos = wrap(pos);
+        marqueeTrack.style.transform = `translateX(${pos}px)`;
+        requestAnimationFrame(tick);
+      }
+      tick();
+
+      marqueeWrap.addEventListener('mousedown', e => {
+        isDown = true;
+        isDragging = true;
+        lastX = e.pageX;
+        velX = 0;
+        cancelAnimationFrame(dragRaf);
+        marqueeWrap.style.cursor = 'grabbing';
+        marqueeWrap.style.userSelect = 'none';
+      });
+
+      window.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        const dx = e.pageX - lastX;
+        lastX = e.pageX;
+        velX = dx;
+        pos += dx;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        marqueeWrap.style.cursor = '';
+        marqueeWrap.style.userSelect = '';
+        let v = velX;
+        function glide() {
+          if (Math.abs(v) < 0.3) { isDragging = false; return; }
+          pos += v;
+          v *= 0.93;
+          dragRaf = requestAnimationFrame(glide);
+        }
+        glide();
+      });
+
+      marqueeWrap.addEventListener('dragstart', e => e.preventDefault());
+    }
+    // ─── HERO KARUSELL ───
+    const heroCarousel = document.querySelector('.hero-carousel');
+    if (heroCarousel) {
+      const viewport = heroCarousel.querySelector('.hero-carousel-viewport');
+      const track = heroCarousel.querySelector('.hero-carousel-track');
+      const actionCursor = heroCarousel.querySelector('.hero-carousel-action-cursor');
+      const actionCursorIcon = heroCarousel.querySelector('.hero-carousel-action-cursor-icon');
+      const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+      if (viewport && track) {
+        const sourceSlides = [...track.children];
+
+        if (sourceSlides.length > 1) {
+          sourceSlides.forEach((slide, index) => {
+            slide.dataset.originalIndex = String(index);
+          });
+
+          const beforeClones = sourceSlides.map((slide, index) => {
+            const clone = slide.cloneNode(true);
+            clone.dataset.originalIndex = String(index);
+            clone.dataset.clone = 'before';
+            return clone;
+          });
+          const afterClones = sourceSlides.map((slide, index) => {
+            const clone = slide.cloneNode(true);
+            clone.dataset.originalIndex = String(index);
+            clone.dataset.clone = 'after';
+            return clone;
+          });
+
+          track.prepend(...beforeClones);
+          track.append(...afterClones);
+
+          let position = 0;
+          let slideWidth = 0;
+          let slideSpan = 0;
+          let activeOriginalIndex = 0;
+          let pointerDown = false;
+          let pointerId = null;
+          let lastX = 0;
+          let velocityX = 0;
+          let didDrag = false;
+          let clickBlocked = false;
+          let glideRaf = 0;
+          let syncRaf = 0;
+          let pointerClientX = 0;
+          let pointerClientY = 0;
+
+          function getSlides() {
+            return [...track.querySelectorAll('.hero-carousel-slide')];
+          }
+
+          function getEdgeZoneWidth() {
+            return Math.max(88, Math.min(viewport.clientWidth * 0.18, 172));
+          }
+
+          function getEdgeDirection(clientX) {
+            if (!finePointerQuery.matches) return 0;
+
+            const rect = viewport.getBoundingClientRect();
+            const zoneWidth = getEdgeZoneWidth();
+
+            if (clientX < rect.left || clientX > rect.right) return 0;
+            if (clientX <= rect.left + zoneWidth) return -1;
+            if (clientX >= rect.right - zoneWidth) return 1;
+            return 0;
+          }
+
+          function setActionCursor(direction, clientX, clientY) {
+            heroCarousel.dataset.edgeDirection =
+              direction === -1 ? 'prev' :
+              direction === 1 ? 'next' :
+              '';
+
+            if (!actionCursor || !actionCursorIcon) return;
+            if (typeof clientX === 'number') actionCursor.style.left = `${clientX}px`;
+            if (typeof clientY === 'number') actionCursor.style.top = `${clientY}px`;
+            if (direction === -1) actionCursorIcon.textContent = '←';
+            if (direction === 1) actionCursorIcon.textContent = '→';
+
+            actionCursor.classList.toggle(
+              'is-visible',
+              direction !== 0 && !pointerDown && finePointerQuery.matches
+            );
+          }
+
+          function getCurrentTranslateX() {
+            const transform = window.getComputedStyle(track).transform;
+            if (!transform || transform === 'none') return position;
+
+            try {
+              return new DOMMatrixReadOnly(transform).m41;
+            } catch {
+              const match = transform.match(/matrix.*\((.+)\)/);
+              if (!match) return position;
+              const values = match[1].split(',').map(value => parseFloat(value.trim()));
+              return values.length >= 6 ? values[4] : position;
+            }
+          }
+
+          function stopMotion() {
+            cancelAnimationFrame(glideRaf);
+            cancelAnimationFrame(syncRaf);
+            glideRaf = 0;
+            syncRaf = 0;
+
+            if (track.classList.contains('is-animating')) {
+              position = getCurrentTranslateX();
+              track.classList.remove('is-animating');
+              track.style.transform = `translate3d(${position}px, 0, 0)`;
+            }
+          }
+
+          function measure() {
+            const slides = getSlides();
+            const sample = slides[0];
+            if (!sample) return false;
+
+            slideWidth = sample.offsetWidth;
+            if (slides[1]) {
+              slideSpan = slides[1].offsetLeft - slides[0].offsetLeft;
+            } else {
+              slideSpan = slideWidth;
+            }
+            return slideSpan > 0;
+          }
+
+          function getCenterBase() {
+            return viewport.clientWidth / 2 - slideWidth / 2;
+          }
+
+          function getVirtualIndex() {
+            if (!slideSpan) return 0;
+            return (getCenterBase() - position) / slideSpan;
+          }
+
+          function getNearestAbsoluteIndex() {
+            return Math.round(getVirtualIndex());
+          }
+
+          function normalizeOriginalIndex(index) {
+            const count = sourceSlides.length;
+            return ((index % count) + count) % count;
+          }
+
+          function normalizeLoopPosition() {
+            const count = sourceSlides.length;
+            const virtualIndex = getVirtualIndex();
+
+            if (virtualIndex < count - 0.5) {
+              position -= count * slideSpan;
+            } else if (virtualIndex > count * 2 - 0.5) {
+              position += count * slideSpan;
+            }
+          }
+
+          function updateSlideState(virtualIndex, currentTranslate = position) {
+            activeOriginalIndex = normalizeOriginalIndex(Math.round(virtualIndex));
+            const viewportCenter = viewport.clientWidth / 2;
+            const falloffDistance = Math.max(slideSpan * 1.32, viewport.clientWidth * 0.3);
+
+            getSlides().forEach(slide => {
+              const slideCenter = currentTranslate + slide.offsetLeft + slide.offsetWidth / 2;
+              const distance = Math.abs(slideCenter - viewportCenter);
+              const normalized = Math.min(distance / falloffDistance, 1.45);
+              const scale = Math.max(0.62, 1 - normalized * 0.34);
+
+              slide.style.transform = `scale(${scale})`;
+              slide.style.zIndex = String(Math.max(1, 30 - Math.round(normalized * 20)));
+            });
+          }
+
+          function render() {
+            track.style.transform = `translate3d(${position}px, 0, 0)`;
+            updateSlideState(getVirtualIndex(), position);
+          }
+
+          function syncAnimatedState() {
+            if (!track.classList.contains('is-animating')) return;
+
+            const currentPosition = getCurrentTranslateX();
+            const virtualIndex = (getCenterBase() - currentPosition) / slideSpan;
+            updateSlideState(virtualIndex, currentPosition);
+            syncRaf = requestAnimationFrame(syncAnimatedState);
+          }
+
+          function snapToAbsoluteIndex(index, immediate = false) {
+            if (!measure()) return;
+
+            position = getCenterBase() - index * slideSpan;
+
+            if (immediate || reducedMotionQuery.matches) {
+              track.classList.remove('is-animating');
+              render();
+              normalizeLoopPosition();
+              render();
+              return;
+            }
+
+            track.classList.add('is-animating');
+            track.style.transform = `translate3d(${position}px, 0, 0)`;
+            cancelAnimationFrame(syncRaf);
+            syncAnimatedState();
+          }
+
+          function snapToNearest(immediate = false) {
+            snapToAbsoluteIndex(getNearestAbsoluteIndex(), immediate);
+          }
+
+          function goToOriginalIndex(originalIndex, immediate = false) {
+            const count = sourceSlides.length;
+            const currentAbsolute = getNearestAbsoluteIndex();
+            const candidates = [originalIndex, originalIndex + count, originalIndex + count * 2];
+            let target = candidates[0];
+
+            candidates.forEach(candidate => {
+              if (Math.abs(candidate - currentAbsolute) < Math.abs(target - currentAbsolute)) {
+                target = candidate;
+              }
+            });
+
+            snapToAbsoluteIndex(target, immediate);
+          }
+
+          function nudge(direction) {
+            snapToAbsoluteIndex(getNearestAbsoluteIndex() + direction);
+          }
+
+          function glideToStop() {
+            if (reducedMotionQuery.matches) {
+              snapToNearest(true);
+              return;
+            }
+
+            let v = velocityX;
+
+            function step() {
+              if (Math.abs(v) < 0.35) {
+                snapToNearest();
+                return;
+              }
+
+              position += v;
+              normalizeLoopPosition();
+              render();
+              v *= 0.93;
+              glideRaf = requestAnimationFrame(step);
+            }
+
+            glideRaf = requestAnimationFrame(step);
+          }
+
+          function setClickBlock(value) {
+            clickBlocked = value;
+            if (value) {
+              window.setTimeout(() => { clickBlocked = false; }, 0);
+            }
+          }
+
+          function initializeCarousel() {
+            if (!measure()) return;
+            position = getCenterBase() - sourceSlides.length * slideSpan;
+            normalizeLoopPosition();
+            render();
+          }
+
+          initializeCarousel();
+
+          viewport.addEventListener('pointerdown', e => {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+
+            stopMotion();
+            pointerDown = true;
+            pointerId = e.pointerId;
+            lastX = e.clientX;
+            pointerClientX = e.clientX;
+            pointerClientY = e.clientY;
+            velocityX = 0;
+            didDrag = false;
+            viewport.classList.add('is-dragging');
+            setActionCursor(0, e.clientX, e.clientY);
+            viewport.setPointerCapture?.(pointerId);
+          });
+
+          viewport.addEventListener('pointermove', e => {
+            pointerClientX = e.clientX;
+            pointerClientY = e.clientY;
+
+            if (!pointerDown) {
+              setActionCursor(getEdgeDirection(e.clientX), e.clientX, e.clientY);
+              return;
+            }
+
+            if (!pointerDown || e.pointerId !== pointerId) return;
+
+            const dx = e.clientX - lastX;
+            if (Math.abs(dx) > 2) didDrag = true;
+
+            lastX = e.clientX;
+            velocityX = dx;
+            position += dx;
+            normalizeLoopPosition();
+            render();
+          });
+
+          function endPointerDrag() {
+            if (!pointerDown) return;
+
+            pointerDown = false;
+            if (pointerId !== null) {
+              viewport.releasePointerCapture?.(pointerId);
+              pointerId = null;
+            }
+            viewport.classList.remove('is-dragging');
+            setClickBlock(didDrag);
+
+            if (didDrag) {
+              glideToStop();
+            } else {
+              snapToNearest(true);
+            }
+
+            setActionCursor(getEdgeDirection(pointerClientX), pointerClientX, pointerClientY);
+          }
+
+          viewport.addEventListener('pointerenter', e => {
+            if (e.pointerType === 'mouse') {
+              setActionCursor(getEdgeDirection(e.clientX), e.clientX, e.clientY);
+            }
+          });
+          viewport.addEventListener('pointerleave', () => {
+            if (!pointerDown) setActionCursor(0);
+          });
+          window.addEventListener('blur', () => {
+            setActionCursor(0);
+          });
+          viewport.addEventListener('pointerup', endPointerDrag);
+          viewport.addEventListener('pointercancel', endPointerDrag);
+          viewport.addEventListener('click', e => {
+            if (clickBlocked) return;
+
+            const direction = getEdgeDirection(e.clientX);
+            if (!direction) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            nudge(direction);
+          }, true);
+
+          track.addEventListener('transitionend', () => {
+            if (!track.classList.contains('is-animating')) return;
+            cancelAnimationFrame(syncRaf);
+            syncRaf = 0;
+            track.classList.remove('is-animating');
+            normalizeLoopPosition();
+            render();
+          });
+
+          track.addEventListener('click', e => {
+            const slide = e.target.closest('.hero-carousel-slide');
+            if (!slide || clickBlocked) return;
+
+            const slideIndex = getSlides().indexOf(slide);
+            if (slideIndex !== -1) {
+              snapToAbsoluteIndex(slideIndex);
+            }
+          });
+
+          heroCarousel.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              nudge(-1);
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              nudge(1);
+            }
+          });
+
+          window.addEventListener('resize', () => {
+            stopMotion();
+            measure();
+            goToOriginalIndex(activeOriginalIndex, true);
+            setActionCursor(0);
+          }, { passive: true });
+
+          if (typeof reducedMotionQuery.addEventListener === 'function') {
+            reducedMotionQuery.addEventListener('change', () => {
+              stopMotion();
+              goToOriginalIndex(activeOriginalIndex, true);
+              setActionCursor(0);
+            });
+          }
+
+          if (typeof finePointerQuery.addEventListener === 'function') {
+            finePointerQuery.addEventListener('change', () => {
+              setActionCursor(0);
+            });
+          }
+        }
+      }
+    }
+
+    // ─── HVORFOR KORT REVEAL ───
+    const hvorforKort = document.querySelectorAll('.hvorfor-kort');
+    const diagonalDelays = [0, 0.15, 0.15, 0.3]; // top-left, top-right, bottom-left, bottom-right
+    const kortRevealObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = [...hvorforKort].indexOf(entry.target);
+          entry.target.style.transitionDelay = (diagonalDelays[idx] || 0) + 's';
+          entry.target.classList.add('visible');
+          kortRevealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    hvorforKort.forEach(k => kortRevealObs.observe(k));
+
+
+
+    // ─── CURSOR SEKSJONSFARGE ───
+    const darkBgSections = document.querySelectorAll('#om, .statement-seksjon, .marquee-strip');
+    const cursorSectionObs = new IntersectionObserver(entries => {
+      const anyDark = [...document.querySelectorAll('#om, .statement-seksjon')]
+        .some(el => {
+          const rect = el.getBoundingClientRect();
+          return rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+        });
+      document.body.classList.toggle('cursor-dark', anyDark);
+    }, { threshold: [0, 0.1, 0.5, 0.9, 1] });
+    darkBgSections.forEach(s => cursorSectionObs.observe(s));
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      const anyDark = [...document.querySelectorAll('#om, .statement-seksjon')]
+        .some(el => {
+          const rect = el.getBoundingClientRect();
+          return rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+        });
+      document.body.classList.toggle('cursor-dark', anyDark);
+
+      // Nav-knapp over mørk bakgrunn
+      const navH = navEl ? navEl.offsetHeight : 68;
+      const navOverDark = [...document.querySelectorAll('#om, footer')]
+        .some(el => {
+          const rect = el.getBoundingClientRect();
+          return rect.top < navH && rect.bottom > 0;
+        });
+      if (navEl) navEl.classList.toggle('nav-dark', navOverDark);
+    }, { passive: true });
+
+    // ─── METODE ANIMATION ───
+    const metodeSteg = document.getElementById('metode-steg');
+    if (metodeSteg) {
+      const metodeObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            metodeSteg.classList.add('animate');
+            metodeObs.unobserve(metodeSteg);
+            // Start cycling after entrance
+            setTimeout(startMetodeCycle, 1800);
+          }
+        });
+      }, { threshold: 0.3 });
+      metodeObs.observe(metodeSteg);
+    }
+
+    function startMetodeCycle() {
+      const items = document.querySelectorAll('.metode-item');
+      let current = 0;
+      function activate(i) {
+        items.forEach(el => el.classList.remove('active'));
+        items[i].classList.add('active');
+      }
+      activate(current);
+      setInterval(() => {
+        current = (current + 1) % items.length;
+        activate(current);
+      }, 4800);
+    }
+
+  </script>
+
+</body>
+</html>
