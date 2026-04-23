@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Akte | Vi bygger digitale tjenester</title>
-  <meta name="description" content="Akte er et produktstudio som bygger egne digitale tjenester — og hjelper andre med å gjøre det samme." />
+  <title>Akte | Design og teknologi</title>
+  <meta name="description" content="Akte er et norsk studio som kombinerer design, strategi og teknologi for å bygge løsninger som varer." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 44'%3E%3Cellipse cx='36' cy='22' rx='36' ry='22' fill='%231a1816'/%3E%3Cpath d='M24,33 L36,12 L48,33' stroke='white' stroke-width='4' stroke-linejoin='miter' stroke-linecap='butt' fill='none'/%3E%3Cline x1='29' y1='26' x2='43' y2='26' stroke='white' stroke-width='3.5' stroke-linecap='butt'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1415,80 +1415,6 @@
     @media (max-width: 600px) {
       h1 { font-size: 38px; }
     }
-    /* ─── PRODUKTER ─── */
-    #produkter { padding-top: clamp(80px, 10vw, 140px); padding-bottom: clamp(60px, 8vw, 100px); }
-    .produkter-header {
-      max-width: 1600px; margin: 0 auto clamp(40px, 5vw, 64px);
-      padding: 0 var(--pad);
-      display: flex; justify-content: space-between; align-items: flex-end;
-      gap: 32px; flex-wrap: wrap;
-    }
-    .produkter-header-tekst { max-width: 52ch; }
-    .produkter-heading {
-      font-size: clamp(34px, 4.5vw, 58px);
-      font-weight: 300; letter-spacing: -0.03em; line-height: 1.05;
-      margin-bottom: clamp(12px, 1.5vw, 20px);
-    }
-    .produkter-intro {
-      font-size: clamp(16px, 1.3vw, 18px);
-      font-weight: 400; color: var(--muted); line-height: 1.75;
-    }
-    .produkter-grid {
-      max-width: 1600px; margin: 0 auto;
-      padding: 0 var(--pad);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(16px, 2vw, 28px);
-    }
-    @media (max-width: 900px) { .produkter-grid { grid-template-columns: 1fr; } }
-    .produkt-kort {
-      border: 1px solid var(--border);
-      padding: clamp(28px, 3.5vw, 44px);
-      display: flex; flex-direction: column;
-      gap: 20px;
-      transition: border-color 0.2s ease;
-      text-decoration: none; color: inherit;
-    }
-    .produkt-kort:hover { border-color: var(--accent); }
-    .produkt-kort-topp {
-      display: flex; justify-content: space-between; align-items: flex-start;
-    }
-    .produkt-status {
-      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 4px 10px; border-radius: 2px;
-      white-space: nowrap;
-    }
-    .produkt-status.aktiv {
-      color: var(--accent); border-color: var(--accent);
-      background: rgba(95,107,83,0.06);
-    }
-    .produkt-ikon {
-      width: 40px; height: 40px;
-      background: var(--bg-alt);
-      border-radius: 2px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .produkt-navn {
-      font-size: clamp(22px, 2vw, 28px);
-      font-weight: 300; letter-spacing: -0.03em;
-      line-height: 1.1;
-    }
-    .produkt-desc {
-      font-size: clamp(15px, 1.2vw, 16px);
-      font-weight: 400; color: var(--muted); line-height: 1.75;
-      flex: 1;
-    }
-    .produkt-tag-liste {
-      display: flex; flex-wrap: wrap; gap: 8px; list-style: none;
-    }
-    .produkt-tag {
-      font-size: 11px; font-weight: 400; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted);
-      background: var(--bg-alt); padding: 4px 10px; border-radius: 2px;
-    }
-
     /* ─── SKIP TO CONTENT ─── */
     .skip-link {
       position: absolute;
@@ -1559,8 +1485,7 @@
     </div>
     <div class="nav-expand" id="navExpand">
       <div class="nav-expand-inner">
-        <a href="#produkter" class="nav-expand-link">Produkter</a>
-        <a href="#tjenester" class="nav-expand-link">For andre</a>
+        <a href="#tjenester" class="nav-expand-link">Tjenester</a>
         <a href="#hvorfor" class="nav-expand-link">Prosess</a>
         <a href="#aktuelt" class="nav-expand-link">Aktuelt</a>
         <a href="#kontakt" class="nav-expand-link">Kontakt</a>
@@ -1574,12 +1499,12 @@
       <div class="hero-title-col">
         <div class="reveal-wrap">
           <div class="reveal-inner">
-            <h1 id="hero-heading">Vi bygger tjenester<br>vi selv tror på</h1>
+            <h1 id="hero-heading">Design og teknologi<br>i samme retning</h1>
           </div>
         </div>
       </div>
       <div class="hero-desc-col">
-        <p class="hero-desc fade-up delay-1">Akte er et produktstudio. Vi bruker design og teknologi til å bygge egne digitale tjenester — og tar på oss oppdrag for andre når det gir mening.</p>
+        <p class="hero-desc fade-up delay-1">De beste løsningene oppstår når man forstår menneskene de er laget for. Akte kombinerer design og teknologi for å bygge varige løsninger.</p>
         <div class="hero-actions fade-up delay-2">
         </div>
       </div>
@@ -1610,69 +1535,10 @@
   </section>
 
 
-  <!-- PRODUKTER -->
-  <section id="produkter" aria-labelledby="produkter-heading">
-    <div class="produkter-header fade-up">
-      <div class="produkter-header-tekst">
-        <p class="section-label">Egne produkter</p>
-        <h2 class="produkter-heading" id="produkter-heading">Det vi bygger</h2>
-        <p class="produkter-intro">Vi utvikler digitale tjenester vi selv eier og driver. Målet er produkter folk faktisk bruker — laget av et lite team som forstår problemet fra innsiden.</p>
-      </div>
-    </div>
-    <div class="produkter-grid">
-
-      <div class="produkt-kort fade-up delay-1">
-        <div class="produkt-kort-topp">
-          <div class="produkt-ikon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="6" height="6" stroke="currentColor" stroke-width="1.2"/><rect x="10" y="2" width="6" height="6" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="10" width="6" height="6" stroke="currentColor" stroke-width="1.2"/><rect x="10" y="10" width="6" height="6" stroke="currentColor" stroke-width="1.2"/></svg>
-          </div>
-          <span class="produkt-status">Under utvikling</span>
-        </div>
-        <h3 class="produkt-navn">Produkt 01</h3>
-        <p class="produkt-desc">Et verktøy som forenkler en arbeidsflyt mange bruker for mye tid på. Mer kan vi ikke si ennå.</p>
-        <ul class="produkt-tag-liste">
-          <li class="produkt-tag">Produktivitet</li>
-          <li class="produkt-tag">Web</li>
-        </ul>
-      </div>
-
-      <div class="produkt-kort fade-up delay-2">
-        <div class="produkt-kort-topp">
-          <div class="produkt-ikon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M9 6v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="produkt-status">Under utvikling</span>
-        </div>
-        <h3 class="produkt-navn">Produkt 02</h3>
-        <p class="produkt-desc">Tidlig fase. Vi har identifisert problemet og er i gang med å validere løsningen.</p>
-        <ul class="produkt-tag-liste">
-          <li class="produkt-tag">KI</li>
-          <li class="produkt-tag">Automatisering</li>
-        </ul>
-      </div>
-
-      <div class="produkt-kort fade-up delay-3" style="border-style: dashed; opacity: 0.5; pointer-events: none;">
-        <div class="produkt-kort-topp">
-          <div class="produkt-ikon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="9" y1="3" x2="9" y2="15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="3" y1="9" x2="15" y2="9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="produkt-status">Neste</span>
-        </div>
-        <h3 class="produkt-navn">Noe nytt</h3>
-        <p class="produkt-desc">Vi leter alltid etter det neste problemet verdt å løse.</p>
-        <ul class="produkt-tag-liste">
-          <li class="produkt-tag">Ukjent ennå</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
   <!-- TJENESTER -->
   <section id="tjenester" aria-labelledby="tjenester-heading">
     <div class="container">
       <p class="tjenester-sub fade-up" id="tjenester-heading" style="display:none"></p>
-      <p class="section-label fade-up">For andre</p>
       <div class="tjenester-layout">
 
         <div class="tjenester-liste">
@@ -1776,9 +1642,9 @@
         </div>
 
         <div class="tjenester-intro fade-up delay-1">
-          <p class="tjenester-intro-tekst">Hjelp til andre</p>
+          <p class="tjenester-intro-tekst">Fra innsikt til handling</p>
           <div class="tjenester-intro-desc">
-            <p>Vi tar på oss prosjekter der vi faktisk kan bidra med noe. Samme metodikk vi bruker på egne produkter — bare for din utfordring. Vi jobber med design, teknologi og KI, og vi liker komplekse problemer.</p>
+            <p>Vi starter alltid med å forstå. Hvem bruker tjenesten, hva trenger de og hva stopper dem i dag? Derfra bruker vi design, teknologi og smarte verktøy for å bygge løsninger som faktisk fungerer i praksis.</p>
           </div>
         </div>
 
@@ -1953,65 +1819,65 @@
         <!-- SET 1 -->
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/prosjekt-01.jpg" alt="" aria-hidden="true">
-          <span class="aktuelt-kategori">Produkt</span>
-          <h3 class="aktuelt-tittel">Slik tenker vi rundt produktbygging i et lite team</h3>
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Når KI møter offentlig sektor — muligheter og fallgruver</h3>
         </a>
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/prosjekt-02.jpg" alt="" aria-hidden="true">
-          <span class="aktuelt-kategori">Innsikt</span>
-          <h3 class="aktuelt-tittel">Å validere en idé uten å kaste bort et halvt år</h3>
+          <span class="aktuelt-kategori">Prosjekt</span>
+          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
         </a>
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/bilde-02.jpg" alt="" aria-hidden="true">
-          <span class="aktuelt-kategori">KI</span>
-          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
+          <span class="aktuelt-kategori">Innsikt</span>
+          <h3 class="aktuelt-tittel">Hva betyr det egentlig å designe for folk flest?</h3>
         </a>
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/prosjekt-04.jpg" alt="" aria-hidden="true">
-          <span class="aktuelt-kategori">Prosess</span>
-          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
+          <span class="aktuelt-kategori">Systemer</span>
+          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
         </a>
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/icons8-team-yTwXpLO5HAA-unsplash.jpg" alt="" aria-hidden="true">
           <span class="aktuelt-kategori">Strategi</span>
-          <h3 class="aktuelt-tittel">Hvorfor vi velger å bygge fremfor å konsultere</h3>
+          <h3 class="aktuelt-tittel">Offentlig sektor trenger mer mot i digitale anskaffelser</h3>
         </a>
         <a href="#" class="aktuelt-kort">
           <img class="aktuelt-kort-bg" src="images/prosjekt-03.jpg" alt="" aria-hidden="true">
-          <span class="aktuelt-kategori">Design</span>
-          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
         </a>
 
         <!-- SET 2 — kopi for sømløs loop -->
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/prosjekt-01.jpg" alt="">
-          <span class="aktuelt-kategori">Produkt</span>
-          <h3 class="aktuelt-tittel">Slik tenker vi rundt produktbygging i et lite team</h3>
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Når KI møter offentlig sektor — muligheter og fallgruver</h3>
         </a>
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/prosjekt-02.jpg" alt="">
-          <span class="aktuelt-kategori">Innsikt</span>
-          <h3 class="aktuelt-tittel">Å validere en idé uten å kaste bort et halvt år</h3>
+          <span class="aktuelt-kategori">Prosjekt</span>
+          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
         </a>
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/bilde-02.jpg" alt="">
-          <span class="aktuelt-kategori">KI</span>
-          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
+          <span class="aktuelt-kategori">Innsikt</span>
+          <h3 class="aktuelt-tittel">Hva betyr det egentlig å designe for folk flest?</h3>
         </a>
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/prosjekt-04.jpg" alt="">
-          <span class="aktuelt-kategori">Prosess</span>
-          <h3 class="aktuelt-tittel">Fra kaotisk arbeidsflyt til sammenhengende digital løsning</h3>
+          <span class="aktuelt-kategori">Systemer</span>
+          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
         </a>
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/icons8-team-yTwXpLO5HAA-unsplash.jpg" alt="">
           <span class="aktuelt-kategori">Strategi</span>
-          <h3 class="aktuelt-tittel">Hvorfor vi velger å bygge fremfor å konsultere</h3>
+          <h3 class="aktuelt-tittel">Offentlig sektor trenger mer mot i digitale anskaffelser</h3>
         </a>
         <a href="#" class="aktuelt-kort" aria-hidden="true" tabindex="-1">
           <img class="aktuelt-kort-bg" src="images/prosjekt-03.jpg" alt="">
-          <span class="aktuelt-kategori">Design</span>
-          <h3 class="aktuelt-tittel">Designsystemer som faktisk brukes — ikke bare dokumenteres</h3>
+          <span class="aktuelt-kategori">KI</span>
+          <h3 class="aktuelt-tittel">Slik bruker vi KI til å forstå brukere raskere</h3>
         </a>
 
       </div>
@@ -2025,8 +1891,8 @@
       <div class="om-inner-layout">
 
       <div class="om-cta-topp fade-up">
-        <h2 class="om-heading" id="om-heading">Et lite team<br>med store ambisjoner</h2>
-        <p class="om-akte-betyr">Vi bygger ting vi selv tror på — og hjelper andre å gjøre det samme. «Akte» betyr å bry seg om og verdsette. Det er holdningen vi tar med oss inn i alt vi lager.</p>
+        <h2 class="om-heading" id="om-heading">Tett på folk<br>tett på behovene</h2>
+        <p class="om-akte-betyr">«Akte» betyr å bry seg om, ta hensyn til og verdsette.<br>Det har vi alltid med oss.</p>
         <a href="mailto:hei@akte.no" class="om-cta-btn">Ta kontakt</a>
       </div>
 
